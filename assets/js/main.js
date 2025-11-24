@@ -1,322 +1,190 @@
-document.addEventListener('DOMContentLoaded', function() {
-  // Пример простой анимации для матчей
-  let matches = document.querySelectorAll('.match');
-  matches.forEach(function(match) {
-    match.addEventListener('mouseenter', () => match.style.background = "#e2ffe2");
-    match.addEventListener('mouseleave', () => match.style.background = "");
-  });
-});
-// In-memory storage (replaces localStorage due to sandbox restrictions)
-let appData = {
-    bookings: [],
-    content: {
-        title: 'ПОТОК',
-        subtitle: 'Мастер-классы по паркуру',
-        description: 'Мастер-класс по паркуру в пространстве «Паркур площадка парк останкино» помогут научиться искусству перемещения и преодоления препятствий. Игры в догонялки после обучения. Запись процесса на видео. Перед началом активностей будет разминка.',
-        location: 'Паркур площадка парк Останкино',
-        duration: '2 часа',
-        ageLimit: 'от 12 лет'
-    },
-    images: {
-        hero: 'https://user-gen-media-assets.s3.amazonaws.com/seedream_images/7e5436ce-5bb1-4e23-989f-e3169e07166a.png',
-        gallery1: 'https://user-gen-media-assets.s3.amazonaws.com/seedream_images/bf08134e-d364-4e10-990a-3b50ff7f1fbf.png',
-        gallery2: 'https://user-gen-media-assets.s3.amazonaws.com/seedream_images/6327ae8c-26a3-4ebe-98b7-bf47b68d0f29.png'
-    },
-    isAuthenticated: false
-};
 
-// Admin credentials
-const ADMIN_LOGIN = 'admin';
-const ADMIN_PASSWORD = 'admin';
+        // Плавная прокрутка для навигации
+        document.querySelectorAll('.nav-links a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
 
-// Initialize app
-function initApp() {
-    // Восстановить заявки из localStorage
-    const savedBookings = localStorage.getItem("bookings");
-    appData.bookings = savedBookings ? JSON.parse(savedBookings) : [];
-    loadContentToPage();
-    updateBookingsCount();
-}
-// function initApp() {
-//     loadContentToPage();
-//     updateBookingsCount();
-// }
+        // Скрытие/появление навигации при прокрутке
+        let lastScrollY = window.scrollY;
+        const nav = document.getElementById('mainNav');
 
-// Load content to main page
-function loadContentToPage() {
-    document.getElementById('siteTitle').textContent = appData.content.title;
-    document.getElementById('siteSubtitle').textContent = appData.content.subtitle;
-    document.getElementById('siteDescription').textContent = appData.content.description;
-    document.getElementById('locationText').textContent = appData.content.location;
-    document.getElementById('durationText').textContent = appData.content.duration;
-    document.getElementById('ageLimitText').textContent = appData.content.ageLimit;
-    document.getElementById('heroImage').src = appData.images.hero;
-    document.getElementById('galleryImage1').src = appData.images.gallery1;
-    document.getElementById('galleryImage2').src = appData.images.gallery2;
-}
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > lastScrollY && window.scrollY > 100) {
+                // Прокрутка вниз
+                nav.classList.add('hidden');
+            } else {
+                // Прокрутка вверх
+                nav.classList.remove('hidden');
+            }
+            lastScrollY = window.scrollY;
+        });
 
-// Modal functions
-function openBookingForm() {
-    document.getElementById('bookingModal').classList.add('active');
-    document.getElementById('bookingForm').reset();
-}
+        // Данные для разных возрастных групп
+        const trainingData = {
+            '7-9': {
+                title: 'Программа для 7-9 лет',
+                description: `Специально разработанная программа для младших школьников, направленная на развитие логического мышления, teamwork и творческих способностей.
+                • Продолжительность: 60 минут
+                • Уровень сложности: начальный
+                • Развитие социальных навыков
+                • Безопасные условия
+                • Игровой формат обучения`,
+                image:  '<img src="assets/img/training1.jpg" alt="Тренировка для 7-9 лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+            },
+            '10-12': {
+                title: 'Программа для 10-12 лет',
+                description: `Программа для школьников средних классов с элементами стратегического мышления и решения сложных задач.
+                • Продолжительность: 75 минут
+                • Уровень сложности: средний
+                • Развитие логики и аналитики
+                • Командные задания
+                • Элементы соревнований`,
+                image: '<img src="assets/img/training2.jpg" alt="Фото тренировки для 10-12 лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+            },
+            '12-14': {
+                title: 'Программа для 12-14 лет',
+                description: `Интенсивная программа для подростков с акцентом на развитие лидерских качеств и стратегического мышления.
+                • Продолжительность: 90 минут
+                • Уровень сложности: продвинутый
+                • Лидерские тренинги
+                • Сложные логические задачи
+                • Проектная работа`,
+                image: '<img src="assets/img/training3.jpg" alt="Фото тренировки для 12-14 лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+            },
+            '14+': {
+                title: 'Программа для 14+ лет',
+                description: `Профессиональная программа для старшеклассников и взрослых с элементами тимбилдинга и сложными квестами.
+                • Продолжительность: 120 минут
+                • Уровень сложности: экспертный
+                • Сложные сценарии
+                • Профессиональный коучинг
+                • Корпоративные программы`,
+                image: '<img src="assets/img/training4.jpg" alt="Фото тренировки для 14+ лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+            }
+        };
 
-function closeBookingForm() {
-    document.getElementById('bookingModal').classList.remove('active');
-}
+        // Инициализация при загрузке страницы - показываем данные для 7-9 лет
+        document.addEventListener('DOMContentLoaded', function() {
+            const initialData = trainingData['7-9'];
+            document.getElementById('trainingDescription').innerHTML = `
+                <h3>${initialData.title}</h3>
+                <p>${initialData.description.replace(/\n/g, '</p><p>• ').replace('<p>• ', '<p>• ')}</p>
+            `;
+            document.getElementById('trainingImage').innerHTML = initialData.image;
+        });
 
-function showAdminLogin() {
-    if (appData.isAuthenticated) {
-        showAdminPage();
-    } else {
-        document.getElementById('loginModal').classList.add('active');
-        document.getElementById('loginForm').reset();
-        document.getElementById('loginError').classList.remove('show');
-    }
-}
+        // Переключение возрастных групп
+        document.querySelectorAll('.age-group').forEach(group => {
+            group.addEventListener('click', function() {
+                document.querySelectorAll('.age-group').forEach(g => g.classList.remove('active'));
+                this.classList.add('active');
+                
+                const age = this.getAttribute('data-age');
+                const data = trainingData[age];
+                
+                document.getElementById('trainingDescription').innerHTML = `
+                    <h3>${data.title}</h3>
+                    <p>${data.description.replace(/\n/g, '</p><p>• ').replace('<p>• ', '<p>• ')}</p>
+                `;
+                document.getElementById('trainingImage').innerHTML = data.image;
+            });
+        });
 
-function closeAdminLogin() {
-    document.getElementById('loginModal').classList.remove('active');
-}
+        // Обработка кнопки "Записаться" в шапке - плавный скролл к форме
+        document.getElementById('headerBookButton').addEventListener('click', function() {
+            document.getElementById('contacts').scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        });
 
-// Submit booking form
-function submitBooking(event) {
-    event.preventDefault();
-    const booking = {
-        id: Date.now(),
-        name: document.getElementById("userName").value,
-        phone: document.getElementById("userPhone").value,
-        age: document.getElementById("userAge").value,
-        comment: document.getElementById("userComment").value,
-        date: new Date().toLocaleString("ru-RU")
-    };
-    appData.bookings.push(booking);
+        // Обработка отправки формы
+        document.getElementById('bookingForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Собираем данные формы
+            const formData = {
+                name: document.getElementById('name').value,
+                age: document.getElementById('age').value,
+                phone: document.getElementById('phone').value,
+                comment: document.getElementById('comment').value,
+                date: new Date().toLocaleString('ru-RU')
+            };
 
-    // Отправка на твой backend (замени URL, если другой порт/хост):
-    fetch("http://localhost:3000/api/bookings", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(booking)
-    })
-    .then(res => res.json())
-    .then(() => {
-        showNotification("Заявка успешно отправлена!");
-        closeBookingForm();
-        updateBookingsCount();
-    })
-    .catch(() => {
-        showNotification("Ошибка отправки! Проверь соединение.");
-    });
+            // Показываем индикатор загрузки
+            const submitButton = this.querySelector('button[type="submit"]');
+            const originalText = submitButton.textContent;
+            submitButton.textContent = 'Отправка...';
+            submitButton.disabled = true;
 
-    // Можно временно оставить
-    // localStorage.setItem("bookings", JSON.stringify(appData.bookings));
-}
+            // Скрываем предыдущие сообщения
+            document.getElementById('successMessage').style.display = 'none';
+            document.getElementById('errorMessage').style.display = 'none';
 
+            // Отправляем данные на сервер
+            fetch('/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Показываем сообщение об успехе
+                document.getElementById('successMessage').style.display = 'block';
+                
+                // Очищаем форму
+                document.getElementById('bookingForm').reset();
+                
+                // Возвращаем кнопку в исходное состояние
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                
+                // Прокручиваем к сообщению об успехе
+                document.getElementById('successMessage').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                
+                // Показываем сообщение об ошибке
+                document.getElementById('errorMessage').style.display = 'block';
+                
+                // Возвращаем кнопку в исходное состояние
+                submitButton.textContent = originalText;
+                submitButton.disabled = false;
+                
+                // Прокручиваем к сообщению об ошибке
+                document.getElementById('errorMessage').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+            });
+        });
 
-// function submitBooking(event) {
-//     event.preventDefault();
-    
-//     const booking = {
-//         id: Date.now(),
-//         name: document.getElementById('userName').value,
-//         phone: document.getElementById('userPhone').value,
-//         age: document.getElementById('userAge').value,
-//         comment: document.getElementById('userComment').value,
-//         date: new Date().toLocaleString('ru-RU')
-//     };
-    
-//     appData.bookings.push(booking);
-//     closeBookingForm();
-//     showNotification('Ваша заявка успешно отправлена! Мы свяжемся с вами в ближайшее время.');
-//     updateBookingsCount();
-// }
-
-// Login handler
-function handleLogin(event) {
-    event.preventDefault();
-    
-    const login = document.getElementById('adminLogin').value;
-    const password = document.getElementById('adminPassword').value;
-    
-    if (login === ADMIN_LOGIN && password === ADMIN_PASSWORD) {
-        appData.isAuthenticated = true;
-        closeAdminLogin();
-        showAdminPage();
-    } else {
-        const errorEl = document.getElementById('loginError');
-        errorEl.textContent = 'Неверный логин или пароль';
-        errorEl.classList.add('show');
-    }
-}
-
-// Show admin page
-function showAdminPage() {
-    document.getElementById('mainPage').classList.remove('active');
-    document.getElementById('adminPage').classList.add('active');
-    loadBookingsTable();
-    loadContentForm();
-    updateBookingsCount();
-}
-
-// Logout
-function logout() {
-    appData.isAuthenticated = false;
-    document.getElementById('adminPage').classList.remove('active');
-    document.getElementById('mainPage').classList.add('active');
-    showNotification('Вы вышли из админ-панели');
-}
-
-// Tab switching
-function showTab(tabName) {
-    // Remove active from all tabs
-    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-    
-    // Add active to selected tab
-    event.target.classList.add('active');
-    document.getElementById(tabName + 'Tab').classList.add('active');
-}
-
-// Load bookings table
-function loadBookingsTable() {
-    const tbody = document.getElementById('bookingsTableBody');
-    
-    if (appData.bookings.length === 0) {
-        tbody.innerHTML = '<tr><td colspan="6" class="no-data">Заявок пока нет</td></tr>';
-    } else {
-        tbody.innerHTML = appData.bookings.map((booking, index) => `
-            <tr>
-                <td>${index + 1}</td>
-                <td>${booking.name}</td>
-                <td>${booking.phone}</td>
-                <td>${booking.age}</td>
-                <td>${booking.comment || '—'}</td>
-                <td>${booking.date}</td>
-            </tr>
-        `).join('');
-    }
-}
-
-// Load content form
-function loadContentForm() {
-    document.getElementById('editTitle').value = appData.content.title;
-    document.getElementById('editSubtitle').value = appData.content.subtitle;
-    document.getElementById('editDescription').value = appData.content.description;
-    document.getElementById('editLocation').value = appData.content.location;
-    document.getElementById('editDuration').value = appData.content.duration;
-    document.getElementById('editAgeLimit').value = appData.content.ageLimit;
-}
-
-// Save content
-function saveContent(event) {
-    event.preventDefault();
-    
-    appData.content = {
-        title: document.getElementById('editTitle').value,
-        subtitle: document.getElementById('editSubtitle').value,
-        description: document.getElementById('editDescription').value,
-        location: document.getElementById('editLocation').value,
-        duration: document.getElementById('editDuration').value,
-        ageLimit: document.getElementById('editAgeLimit').value
-    };
-    
-    loadContentToPage();
-    showNotification('Контент успешно сохранен!');
-}
-
-// Handle image upload
-function handleImageUpload(type, input) {
-    const file = input.files[0];
-    if (!file) return;
-    
-    const reader = new FileReader();
-    reader.onload = function(e) {
-        const imageUrl = e.target.result;
-        
-        // Update in-memory storage
-        appData.images[type] = imageUrl;
-        
-        // Update previews
-        if (type === 'hero') {
-            document.getElementById('previewHeroImage').src = imageUrl;
-            document.getElementById('heroImage').src = imageUrl;
-        } else if (type === 'gallery1') {
-            document.getElementById('previewGallery1').src = imageUrl;
-            document.getElementById('galleryImage1').src = imageUrl;
-        } else if (type === 'gallery2') {
-            document.getElementById('previewGallery2').src = imageUrl;
-            document.getElementById('galleryImage2').src = imageUrl;
-        }
-        
-        showNotification('Изображение успешно загружено!');
-    };
-    reader.readAsDataURL(file);
-}
-
-// Update bookings count
-function updateBookingsCount() {
-    const count = appData.bookings.length;
-    const badge = document.getElementById('bookingsCount');
-    if (badge) {
-        badge.textContent = count;
-    }
-}
-
-// Show notification
-function showNotification(message, isError = false) {
-    const notification = document.getElementById('notification');
-    notification.textContent = message;
-    notification.classList.add('show');
-    
-    if (isError) {
-        notification.classList.add('error');
-    } else {
-        notification.classList.remove('error');
-    }
-    
-    setTimeout(() => {
-        notification.classList.remove('show');
-    }, 4000);
-}
-
-// Close modals on outside click
-window.onclick = function(event) {
-    const bookingModal = document.getElementById('bookingModal');
-    const loginModal = document.getElementById('loginModal');
-    
-    if (event.target === bookingModal) {
-        closeBookingForm();
-    }
-    if (event.target === loginModal) {
-        closeAdminLogin();
-    }
-}
-function exportBookingsToCSV() {
-    // Заголовки
-    const headers = ["ID", "Имя", "Телефон", "Возраст", "Комментарий", "Дата"];
-    let csv = headers.join(",") + "\n";
-    
-    // Данные
-    appData.bookings.forEach(b => {
-        csv += [
-            b.id,
-            `"${b.name}"`,      // в кавычках — если вдруг запятые
-            `"${b.phone}"`,
-            b.age,
-            `"${b.comment}"`,
-            `"${b.date}"`
-        ].join(",") + "\n";
-    });
-
-    // Создаём Blob и ссылку для скачивания
-    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
-    const link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "bookings.csv";
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-}
-
-// Initialize app on load
-window.onload = initApp;
+        // Обработка остальных кнопок "Записаться" (если они есть)
+        document.querySelectorAll('.cta-button:not(#headerBookButton):not([type="submit"])').forEach(button => {
+            button.addEventListener('click', function() {
+                document.getElementById('contacts').scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });

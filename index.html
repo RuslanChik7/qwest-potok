@@ -14,6 +14,7 @@
         body {
             font-family: 'Arial', sans-serif;
             line-height: 1.6;
+            overflow-x: hidden;
         }
 
         /* Цветовые темы */
@@ -27,7 +28,7 @@
             color: #ffffff;
         }
 
-        /* Header & Footer - синие с белым текстом */
+        /* Header & Footer */
         header, footer {
             background-color: #240e3c;
             color: #ffffff;
@@ -36,7 +37,7 @@
         /* Navigation */
         .main-nav {
             background-color: #240e3c;
-            padding: 8px 0;
+            padding: 12px 0;
             position: fixed;
             width: 100%;
             top: 0;
@@ -65,8 +66,8 @@
         }
 
         .logo-image {
-            width: 40px;
-            height: 40px;
+            width: 45px;
+            height: 45px;
             background: #e88125;
             border-radius: 6px;
             display: flex;
@@ -81,7 +82,7 @@
         .nav-links {
             display: flex;
             list-style: none;
-            gap: 30px;
+            gap: 25px;
         }
 
         .nav-links a {
@@ -100,12 +101,87 @@
             transform: translateY(-2px);
         }
 
+        /* Бургер-меню */
+        .burger-menu {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 5px;
+            background: none;
+            border: none;
+        }
+
+        .burger-menu span {
+            width: 25px;
+            height: 3px;
+            background: #ffffff;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        /* Мобильное меню */
+        .mobile-nav {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #240e3c;
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+
+        .mobile-nav-links li {
+            margin: 20px 0;
+        }
+
+        .mobile-nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-size: 24px;
+            font-weight: 600;
+            padding: 15px 30px;
+            display: block;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+        }
+
+        .mobile-nav-links a:hover {
+            background-color: #e88125;
+            color: #000000;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 30px;
+            cursor: pointer;
+            padding: 10px;
+        }
+
         /* Header */
         header {
-            padding: 80px 0 60px;
+            padding: 100px 0 60px;
             position: relative;
             overflow: hidden;
-            margin-top: 40px;
+            margin-top: 70px;
         }
 
         .container {
@@ -157,7 +233,7 @@
             transition: all 0.3s ease;
             border: none;
             cursor: pointer;
-            border: 2px solid #ffffff;
+            border: 2px solid #e88125;
         }
 
         .cta-button:hover {
@@ -168,14 +244,10 @@
         }
 
         .header-image {
-            background: #5d328c;
+            width: 100%;
             height: 400px;
             border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #ffffff;
-            font-size: 18px;
+            object-fit: cover;
             border: 2px solid #000;
         }
 
@@ -273,25 +345,11 @@
         }
 
         .training-image {
+            width: 100%;
             height: 300px;
             border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
             border: 2px solid;
-            font-weight: bold;
-        }
-
-        .section-orange .training-image {
-            background: #5d328c;
-            color: #ffffff;
-            border-color: #5d328c;
-        }
-
-        .section-purple .training-image {
-            background: #e88125;
-            color: #000000;
-            border-color: #e88125;
         }
 
         /* Quests */
@@ -325,21 +383,9 @@
         }
 
         .quest-image {
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .section-orange .quest-image {
-            background: #5d328c;
-            color: #ffffff;
-        }
-
-        .section-purple .quest-image {
-            background: #e88125;
-            color: #000000;
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
         }
 
         .quest-info {
@@ -404,25 +450,11 @@
         }
 
         .park-image {
+            width: 100%;
             height: 200px;
             border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            object-fit: cover;
             border: 2px solid;
-            font-weight: bold;
-        }
-
-        .section-orange .park-image {
-            background: #5d328c;
-            color: #ffffff;
-            border-color: #5d328c;
-        }
-
-        .section-purple .park-image {
-            background: #e88125;
-            color: #000000;
-            border-color: #e88125;
         }
 
         /* Trainers */
@@ -433,21 +465,13 @@
         }
 
         .trainer-card {
+						background-color:#e88125;
             border-radius: 15px;
             overflow: hidden;
             transition: all 0.3s ease;
             border: 2px solid;
+						border-color:#e88125;
             text-align: left;
-        }
-
-        .section-orange .trainer-card {
-            background-color: #5d328c;
-            border-color: #5d328c;
-        }
-
-        .section-purple .trainer-card {
-            background-color: #e88125;
-            border-color: #e88125;
         }
 
         .trainer-card:hover {
@@ -455,21 +479,9 @@
         }
 
         .trainer-image {
+            width: 100%;
             height: 300px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-        }
-
-        .section-orange .trainer-image {
-            background: #5d328c;
-            color: #ffffff;
-        }
-
-        .section-purple .trainer-image {
-            background: #e88125;
-            color: #000000;
+            object-fit: cover;
         }
 
         .trainer-info {
@@ -565,7 +577,6 @@
         }
 
         .contact-form {
-						margin-top: -150px;
             padding: 40px;
             border-radius: 15px;
             text-align: left;
@@ -611,22 +622,31 @@
             color: #000000;
         }
 
-        .form-group input {
+        .form-group input,
+        .form-group textarea {
             width: 100%;
             padding: 15px;
             border: 2px solid;
             border-radius: 8px;
             font-size: 16px;
             font-weight: 500;
+            font-family: 'Arial', sans-serif;
+            resize: vertical;
         }
 
-        .section-orange .form-group input {
+        .form-group textarea {
+            min-height: 80px;
+        }
+
+        .section-orange .form-group input,
+        .section-orange .form-group textarea {
             background-color: #5d328c;
             border-color: #e88125;
             color: #ffffff;
         }
 
-        .section-purple .form-group input {
+        .section-purple .form-group input,
+        .section-purple .form-group textarea {
             background-color: #e88125;
             border-color: #5d328c;
             color: #000000;
@@ -645,7 +665,7 @@
             border: none;
             cursor: pointer;
             margin-top: 20px;
-            width: 50%;
+            width: 100%;
             text-align: center;
         }
 
@@ -674,16 +694,71 @@
             font-weight: 500;
         }
 
-        /* Responsive */
+        .success-message {
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        .error-message {
+            background-color: #f44336;
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .header-content {
+                gap: 40px;
+            }
+            
+            .training-content,
+            .about-content,
+            .contacts-content {
+                gap: 40px;
+            }
+            
+            .quests-grid,
+            .trainers-grid,
+            .reviews-grid {
+                gap: 30px;
+            }
+        }
+
         @media (max-width: 968px) {
+            .nav-links {
+                display: none;
+            }
+
+            .burger-menu {
+                display: flex;
+            }
+
             .header-content {
                 grid-template-columns: 1fr;
                 text-align: center;
+                gap: 40px;
             }
             
             .header-text h1,
             .header-description {
                 text-align: center;
+            }
+            
+            .header-text h1 {
+                font-size: 36px;
+            }
+            
+            .header-description {
+                font-size: 16px;
             }
             
             .quests-grid {
@@ -708,89 +783,109 @@
             
             .park-images {
                 grid-template-columns: 1fr;
-            }
-            
-            .nav-links {
                 gap: 15px;
-            }
-            
-            .nav-links a {
-                font-size: 14px;
-                padding: 6px 10px;
             }
             
             .contacts-content {
                 grid-template-columns: 1fr;
+                gap: 40px;
+            }
+            
+            section {
+                padding: 60px 0;
+            }
+            
+            .section-title {
+                font-size: 32px;
+                margin-bottom: 40px;
+            }
+
+            .contact-form {
+                margin-top: 0;
+                order: 2;
+            }
+
+            .contact-info {
+                order: 1;
             }
         }
 
         @media (max-width: 768px) {
-            .nav-links {
-                flex-wrap: wrap;
-                gap: 8px;
-                justify-content: center;
-            }
-            
             header {
-                padding: 70px 0 40px;
-                margin-top: 50px;
+                padding: 80px 0 40px;
+                margin-top: 70px;
             }
             
             .header-text h1 {
-                font-size: 36px;
+                font-size: 28px;
             }
             
-            .trainers-grid {
-                grid-template-columns: 1fr;
+            .cta-button {
+                padding: 15px 30px;
+                font-size: 16px;
             }
             
-            .nav-links a {
-                font-size: 13px;
+            .age-groups {
+                gap: 10px;
+                justify-content: center;
+            }
+            
+            .age-group {
+                padding: 12px 20px;
+                font-size: 14px;
+            }
+            
+            .training-description,
+            .contact-form {
+                padding: 30px;
+            }
+            
+            .phone-number {
+                font-size: 28px;
             }
         }
-        
-        .form-group textarea {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid;
-            border-radius: 8px;
-            font-size: 16px;
-            font-weight: 500;
-            font-family: 'Arial', sans-serif;
-            resize: vertical;
-            min-height: 80px;
-        }
 
-        .section-orange .form-group textarea {
-            background-color: #5d328c;
-            border-color: #e88125;
-            color: #ffffff;
-        }
-
-        .section-purple .form-group textarea {
-            background-color: #e88125;
-            border-color: #000000;
-            color: #000000;
-        }
-
-        .success-message {
-            background-color: #4CAF50;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            display: none;
-        }
-
-        .error-message {
-            background-color: #f44336;
-            color: white;
-            padding: 15px;
-            border-radius: 8px;
-            margin-top: 20px;
-            text-align: center;
-            display: none;
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 15px;
+            }
+            
+            header {
+                margin-top: 70px;
+                padding: 60px 0 30px;
+            }
+            
+            .header-text h1 {
+                font-size: 24px;
+            }
+            
+            .container {
+                padding: 0 15px;
+            }
+            
+            .section-title {
+                font-size: 28px;
+                text-align: center;
+            }
+            
+            .phone-number {
+                font-size: 24px;
+                text-align: center;
+            }
+            
+            .location {
+                text-align: center;
+            }
+            
+            .training-description,
+            .contact-form {
+                padding: 20px;
+            }
+            
+            .quest-info,
+            .trainer-info {
+                padding: 20px;
+            }
         }
     </style>
 </head>
@@ -799,8 +894,10 @@
     <nav class="main-nav" id="mainNav">
         <div class="nav-container">
             <div class="logo-container">
-                <img class="logo-image" src="assets\img\logo.jpg" alt="Логотип Потока">
+                <img class="logo-image" src="assets/img/logo.jpg" alt="Логотип Потока">
             </div>
+            
+            <!-- Десктопное меню -->
             <ul class="nav-links">
                 <li><a href="#training">План тренировок</a></li>
                 <li><a href="#quests">Квесты</a></li>
@@ -809,8 +906,28 @@
                 <li><a href="#reviews">Отзывы</a></li>
                 <li><a href="#contacts">Контакты</a></li>
             </ul>
+            
+            <!-- Бургер-меню -->
+            <button class="burger-menu" id="burgerMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
         </div>
     </nav>
+
+    <!-- Мобильное меню -->
+    <div class="mobile-nav" id="mobileNav">
+        <button class="close-menu" id="closeMenu">×</button>
+        <ul class="mobile-nav-links">
+            <li><a href="#training">План тренировок</a></li>
+            <li><a href="#quests">Квесты</a></li>
+            <li><a href="#about">О нас</a></li>
+            <li><a href="#trainers">Тренеры</a></li>
+            <li><a href="#reviews">Отзывы</a></li>
+            <li><a href="#contacts">Контакты</a></li>
+        </ul>
+    </div>
 
     <!-- Header -->
     <header>
@@ -822,7 +939,7 @@
                     <p class="header-description">Погрузитесь в мир приключений и загадок! Самые захватывающие квесты Москвы ждут вас. Развивайте логику, teamwork и получайте незабываемые эмоции.</p>
                     <button class="cta-button" id="headerBookButton">Записаться</button>
                 </div>
-                <img class="header-image" src="assets\img\oblozhka.jpg" alt="Изображение людей, проходящих квест">
+                <img class="header-image" src="assets/img/oblozhka.jpg" alt="Изображение людей, проходящих квест">
             </div>
         </div>
     </header>
@@ -847,7 +964,7 @@
                     <p>• Безопасные условия</p>
                     <p>• Игровой формат обучения</p>
                 </div>
-                <div class="training-image" id="trainingImage">Фото тренировки для 7-9 лет</div>
+                <img class="training-image" id="trainingImage" src="assets/img/training1.jpg" alt="Тренировка для 7-9 лет">
             </div>
         </div>
     </section>
@@ -858,7 +975,7 @@
             <h2 class="section-title">КВЕСТЫ</h2>
             <div class="quests-grid">
                 <div class="quest-card">
-                    <img class="quest-image" style="height: 300px; margin-bottom: 20px;" src="assets\img\training1.jpg" alt="Фото квеста 1">
+                    <img class="quest-image" src="assets/img/training1.jpg" alt="Фото квеста 1">
                     <div class="quest-info">
                         <h3>Затерянный мир</h3>
                         <p>Отправьтесь в путешествие по неизведанным землям, решите древние загадки и найдите путь домой.</p>
@@ -866,7 +983,7 @@
                     </div>
                 </div>
                 <div class="quest-card">
-                    <img class="quest-image" style="height: 300px; margin-bottom: 20px;" src="assets\img\training2.jpg" alt="Фото квеста 2">
+                    <img class="quest-image" src="assets/img/training2.jpg" alt="Фото квеста 2">
                     <div class="quest-info">
                         <h3>Лабиринт времени</h3>
                         <p>Исправьте временной разрыв и вернитесь в настоящее, прежде чем время иссякнет.</p>
@@ -874,7 +991,7 @@
                     </div>
                 </div>
                 <div class="quest-card">
-                    <img class="quest-image" style="height: 300px; margin-bottom: 20px;" src="assets\img\training3.jpg" alt="Фото квеста 3">
+                    <img class="quest-image" src="assets/img/training3.jpg" alt="Фото квеста 3">
                     <div class="quest-info">
                         <h3>Код Атлантиды</h3>
                         <p>Разгадайте тайны древней цивилизации и найдите легендарный город Атлантиду.</p>
@@ -896,13 +1013,13 @@
                     <p>Мы создаем незабываемые впечатления и развиваем важные навыки через игру и приключения.</p>
                 </div>
                 <div>
-                    <img class="park-image" style="height: 300px; margin-bottom: 20px;" src="assets\img\karty.png" alt="Карта расположения">
+                    <img class="park-image" src="assets/img/karty.png" alt="Карта расположения">
                 </div>
             </div>
             <div class="park-images">
-                <img class="park-image" src="assets\img\photo1.jpg" alt="Фото 1">
-                <img class="park-image" src="assets\img\photo2.jpg" alt="Фото 2">
-                <img class="park-image" src="assets\img\photo3.jpg" alt="Фото 3">
+                <img class="park-image" src="assets/img/photo1.jpg" alt="Фото 1">
+                <img class="park-image" src="assets/img/photo2.jpg" alt="Фото 2">
+                <img class="park-image" src="assets/img/photo3.jpg" alt="Фото 3">
             </div>
         </div>
     </section>
@@ -913,21 +1030,21 @@
             <h2 class="section-title">ТРЕНЕРЫ</h2>
             <div class="trainers-grid">
                 <div class="trainer-card">
-                    <img class="trainer-image" style="width: 100%;" src="assets\img\trainer1.png" alt="Фото тренера">
+                    <img class="trainer-image" src="assets/img/trainer1.png" alt="Фото тренера">
                     <div class="trainer-info">
                         <h3>Иванов Алексей</h3>
                         <p>Опытный тренер с 8-летним стажем. Специализируется на квестах для подростков. Образование: МГУ, факультет психологии.</p>
                     </div>
                 </div>
                 <div class="trainer-card">
-                    <img class="trainer-image" style="width: 100%;" src="assets\img\trainer2.png" alt="Фото тренера">
+                    <img class="trainer-image" src="assets/img/trainer2.png" alt="Фото тренера">
                     <div class="trainer-info">
                         <h3>Петрова Мария</h3>
                         <p>Профессиональный инструктор по team-building. Разрабатывает уникальные сценарии квестов. Работает с группами всех возрастов.</p>
                     </div>
                 </div>
                 <div class="trainer-card">
-                    <img class="trainer-image" style="width: 100%;" src="assets\img\trainer3.png" alt="Фото тренера">
+                    <img class="trainer-image" src="assets/img/trainer3.png" alt="Фото тренера">
                     <div class="trainer-info">
                         <h3>Сидоров Дмитрий</h3>
                         <p>Специалист по экстремальным квестам и развитию лидерских качеств. Мастер спорта по туризму.</p>
@@ -1011,10 +1128,33 @@
             <p>Квесты в Москве © 2024. Все права защищены.</p>
         </div>
     </footer>
-<script>main.js</script>
-    <!-- <script>
+
+    <script>
+        // Мобильное меню
+        const burgerMenu = document.getElementById('burgerMenu');
+        const mobileNav = document.getElementById('mobileNav');
+        const closeMenu = document.getElementById('closeMenu');
+        const mobileLinks = document.querySelectorAll('.mobile-nav-links a');
+
+        burgerMenu.addEventListener('click', function() {
+            mobileNav.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        closeMenu.addEventListener('click', function() {
+            mobileNav.classList.remove('active');
+            document.body.style.overflow = '';
+        });
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                mobileNav.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        });
+
         // Плавная прокрутка для навигации
-        document.querySelectorAll('.nav-links a').forEach(anchor => {
+        document.querySelectorAll('.nav-links a, .mobile-nav-links a').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 const target = document.querySelector(this.getAttribute('href'));
@@ -1033,10 +1173,8 @@
 
         window.addEventListener('scroll', () => {
             if (window.scrollY > lastScrollY && window.scrollY > 100) {
-                // Прокрутка вниз
                 nav.classList.add('hidden');
             } else {
-                // Прокрутка вверх
                 nav.classList.remove('hidden');
             }
             lastScrollY = window.scrollY;
@@ -1052,7 +1190,7 @@
                 • Развитие социальных навыков
                 • Безопасные условия
                 • Игровой формат обучения`,
-                image:  '<img src="assets/img/training1.jpg" alt="Тренировка для 7-9 лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+                image: 'assets/img/training1.jpg'
             },
             '10-12': {
                 title: 'Программа для 10-12 лет',
@@ -1062,7 +1200,7 @@
                 • Развитие логики и аналитики
                 • Командные задания
                 • Элементы соревнований`,
-                image: '<img src="assets/img/training2.jpg" alt="Фото тренировки для 10-12 лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+                image: 'assets/img/training2.jpg'
             },
             '12-14': {
                 title: 'Программа для 12-14 лет',
@@ -1072,7 +1210,7 @@
                 • Лидерские тренинги
                 • Сложные логические задачи
                 • Проектная работа`,
-                image: '<img src="assets/img/training3.jpg" alt="Фото тренировки для 12-14 лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+                image: 'assets/img/training3.jpg'
             },
             '14+': {
                 title: 'Программа для 14+ лет',
@@ -1082,18 +1220,18 @@
                 • Сложные сценарии
                 • Профессиональный коучинг
                 • Корпоративные программы`,
-                image: '<img src="assets/img/training4.jpg" alt="Фото тренировки для 14+ лет" style="width:100%; height:100%; object-fit:cover; border-radius:15px;">'
+                image: 'assets/img/training4.jpg'
             }
         };
 
-        // Инициализация при загрузке страницы - показываем данные для 7-9 лет
+        // Инициализация при загрузке страницы
         document.addEventListener('DOMContentLoaded', function() {
             const initialData = trainingData['7-9'];
             document.getElementById('trainingDescription').innerHTML = `
                 <h3>${initialData.title}</h3>
                 <p>${initialData.description.replace(/\n/g, '</p><p>• ').replace('<p>• ', '<p>• ')}</p>
             `;
-            document.getElementById('trainingImage').innerHTML = initialData.image;
+            document.getElementById('trainingImage').src = initialData.image;
         });
 
         // Переключение возрастных групп
@@ -1109,11 +1247,11 @@
                     <h3>${data.title}</h3>
                     <p>${data.description.replace(/\n/g, '</p><p>• ').replace('<p>• ', '<p>• ')}</p>
                 `;
-                document.getElementById('trainingImage').innerHTML = data.image;
+                document.getElementById('trainingImage').src = data.image;
             });
         });
 
-        // Обработка кнопки "Записаться" в шапке - плавный скролл к форме
+        // Обработка кнопки "Записаться" в шапке
         document.getElementById('headerBookButton').addEventListener('click', function() {
             document.getElementById('contacts').scrollIntoView({
                 behavior: 'smooth',
@@ -1125,7 +1263,6 @@
         document.getElementById('bookingForm').addEventListener('submit', function(e) {
             e.preventDefault();
             
-            // Собираем данные формы
             const formData = {
                 name: document.getElementById('name').value,
                 age: document.getElementById('age').value,
@@ -1134,74 +1271,27 @@
                 date: new Date().toLocaleString('ru-RU')
             };
 
-            // Показываем индикатор загрузки
             const submitButton = this.querySelector('button[type="submit"]');
             const originalText = submitButton.textContent;
             submitButton.textContent = 'Отправка...';
             submitButton.disabled = true;
 
-            // Скрываем предыдущие сообщения
             document.getElementById('successMessage').style.display = 'none';
             document.getElementById('errorMessage').style.display = 'none';
 
-            // Отправляем данные на сервер
-            fetch('/api/bookings', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData)
-            })
-            .then(response => {
-                if (!response.ok) {
-                    throw new Error('Network response was not ok');
-                }
-                return response.json();
-            })
-            .then(data => {
-                // Показываем сообщение об успехе
+            // Имитация отправки данных
+            setTimeout(() => {
                 document.getElementById('successMessage').style.display = 'block';
-                
-                // Очищаем форму
                 document.getElementById('bookingForm').reset();
-                
-                // Возвращаем кнопку в исходное состояние
                 submitButton.textContent = originalText;
                 submitButton.disabled = false;
                 
-                // Прокручиваем к сообщению об успехе
                 document.getElementById('successMessage').scrollIntoView({
                     behavior: 'smooth',
                     block: 'center'
                 });
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                
-                // Показываем сообщение об ошибке
-                document.getElementById('errorMessage').style.display = 'block';
-                
-                // Возвращаем кнопку в исходное состояние
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-                
-                // Прокручиваем к сообщению об ошибке
-                document.getElementById('errorMessage').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            });
+            }, 1000);
         });
-
-        // Обработка остальных кнопок "Записаться" (если они есть)
-        document.querySelectorAll('.cta-button:not(#headerBookButton):not([type="submit"])').forEach(button => {
-            button.addEventListener('click', function() {
-                document.getElementById('contacts').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            });
-        });
-    </script> -->
+    </script>
 </body>
 </html>

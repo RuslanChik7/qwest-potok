@@ -30,13 +30,13 @@
 
         /* Header & Footer */
         header, footer {
-            background-color: #240e3c;
+            background-color: #3c1863;
             color: #ffffff;
         }
 
         /* Navigation */
         .main-nav {
-            background-color: #240e3c;
+            background-color: #3c1863;
             padding: 12px 0;
             position: fixed;
             width: 100%;
@@ -128,7 +128,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: #240e3c;
+            background: #3c1863;
             z-index: 999;
             flex-direction: column;
             justify-content: center;
@@ -220,11 +220,11 @@
             text-align: left;
             opacity: 0.9;
         }
-
+/* 240e3c */
         .cta-button {
             display: inline-block;
             background: #ffffff;
-            color: #240e3c;
+            color: #3c1863; 
             padding: 18px 40px;
             text-decoration: none;
             border-radius: 8px;
@@ -1258,40 +1258,59 @@
                 block: 'start'
             });
         });
+		// РЕАЛЬНАЯ отправка формы на твой сервер
+		document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+				e.preventDefault();
 
-        // Обработка отправки формы
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            const formData = {
-                name: document.getElementById('name').value,
-                age: document.getElementById('age').value,
-                phone: document.getElementById('phone').value,
-                comment: document.getElementById('comment').value,
-                date: new Date().toLocaleString('ru-RU')
-            };
+				const submitButton = this.querySelector('button[type="submit"]');
+				const originalText = submitButton.textContent;
 
-            const submitButton = this.querySelector('button[type="submit"]');
-            const originalText = submitButton.textContent;
-            submitButton.textContent = 'Отправка...';
-            submitButton.disabled = true;
+				// Скрываем старые сообщения
+				document.getElementById('successMessage').style.display = 'none';
+				document.getElementById('errorMessage').style.display = 'none';
 
-            document.getElementById('successMessage').style.display = 'none';
-            document.getElementById('errorMessage').style.display = 'none';
+				// Меняем кнопку
+				submitButton.textContent = 'Отправка...';
+				submitButton.disabled = true;
 
-            // Имитация отправки данных
-            setTimeout(() => {
-                document.getElementById('successMessage').style.display = 'block';
-                document.getElementById('bookingForm').reset();
-                submitButton.textContent = originalText;
-                submitButton.disabled = false;
-                
-                document.getElementById('successMessage').scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'center'
-                });
-            }, 1000);
-        });
+				const formData = {
+						name: document.getElementById('name').value.trim(),
+						age: document.getElementById('age').value || null,
+						phone: document.getElementById('phone').value.trim(),
+						comment: document.getElementById('comment').value.trim() || 'Нет комментария'
+				};
+
+				try {
+						const response = await fetch('/api/bookings', {
+								method: 'POST',
+								headers: {
+										'Content-Type': 'application/json',
+								},
+								body: JSON.stringify(formData)
+						});
+
+						const result = await response.json();
+
+						if (response.ok && result.status === 'ok') {
+								document.getElementById('successMessage').style.display = 'block';
+								document.getElementById('bookingForm').reset();
+								document.getElementById('successMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+						} else {
+								throw new Error(result.message || 'Неизвестная ошибка');
+						}
+				} catch (err) {
+						console.error('Ошибка отправки:', err);
+						document.getElementById('errorMessage').textContent = 
+								err.message.includes('Failed to fetch') 
+										? 'Не удаётся связаться с сервером. Проверьте, запущен ли сервер на порту 3000.'
+										: (err.message || 'Произошла ошибка при отправке');
+						document.getElementById('errorMessage').style.display = 'block';
+						document.getElementById('errorMessage').scrollIntoView({ behavior: 'smooth', block: 'center' });
+				} finally {
+						submitButton.textContent = originalText;
+						submitButton.disabled = false;
+				}
+		});
     </script>
 </body>
 </html>
